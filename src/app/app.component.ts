@@ -26,11 +26,11 @@ export class AppComponent implements AfterViewInit{
         const MAX_WIDTH = 400;
 
         const scaleSize = MAX_WIDTH / event.target.width;
-        this.myCanvas.width = MAX_WIDTH;
-        this.myCanvas.height = event.target.height * scaleSize;
+        // this.myCanvas.width = MAX_WIDTH;
+        // this.myCanvas.height = event.target.height * scaleSize;
 
 
-        this.context.drawImage(event.target, 0, 0, this.myCanvas.width, this.myCanvas.height);
+        // this.context.drawImage(event.target, 0, 0, this.myCanvas.width, this.myCanvas.height);
 
         const srcEncoded = this.context.canvas.toDataURL(event.target, "image/jpeg");
 
