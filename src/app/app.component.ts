@@ -24,13 +24,32 @@ export class AppComponent{
           this.originalImageUrl = reader.result;
           console.log('originalImageUrl : ',this.originalImageUrl);
           // half done -----0------
-
-
-          
-
+          this.compressImage(this.originalImageUrl,200,200).then(compressed => {
+              this.resizeImageUrl = compressed;
+              console.log('resizeImageUrl :- ',this.resizeImageUrl);
+          })
           // const srcEncoded = this.context.canvas.toDataURL(event.target, "image/jpeg");
         };
       }
     }
   }
+  
+  compressImage(src, newX, newY) {
+    return new Promise((res, rej) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        const elem = document.createElement('canvas');
+        elem.width = newX;
+        elem.height = newY;
+        const ctx = elem.getContext('2d');
+        ctx.drawImage(img, 0, 0, newX, newY);
+        const data = ctx.canvas.toDataURL();
+        res(data);
+      }
+      img.onerror = error => rej(error);
+    })
+  }
+
+
 }
