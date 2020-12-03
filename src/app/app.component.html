@@ -1,11 +1,10 @@
-<!-- <input type="file" id="upload" accept=".jpg, .jpeg, .png" />
-<button (click)="process()">Process</button> -->
-<!-- <div>
-  <img id="input" />
-</div>
-<div>
-  <img id="output" />
-</div> -->
+<input type="file" multiple accept='image/*' (change)="onSelectFile($event)" />
+
+<p>input:</p>
+<img src="{{originalImageUrl}}" id="input">
 
 
-<input type="file" multiple accept='image/*' (change)="onSelectFile($event)" id="inputGroupFile" />
+<p>output:</p>
+<img src="{{resizeImageUrl}}" id="output">
+
+<canvas #canvas id="canvas"></canvas>

@@ -5,36 +5,32 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent{
   title = 'ngNewTec';
-  @ViewChild('myCanvas',{static:false}) 
-  myCanvas:ElementRef;
-  // myCanvas: ElementRef<HTMLCanvasElement>;
-  public context: CanvasRenderingContext2D;
-
-  ngAfterViewInit():void{
-    this.context = this.myCanvas.nativeElement.getContext('2d');
-  }
+  originalImageUrl:any;
+  resizeImageUrl:any;
 
   onSelectFile(event) {
     if (event.target.files && event.target.files.length !== 0) {
       for (const file of event.target.files) {
-        const mimeType = file.type;
-        const imageName = file.name;
-        const imageSize = (file.size / 1024).toFixed(2);
+        const MAX_WIDTH = 200;
+        const max_hight = 300;
 
-        const MAX_WIDTH = 400;
+        const reader = new FileReader();
 
-        const scaleSize = MAX_WIDTH / event.target.width;
-        // this.myCanvas.width = MAX_WIDTH;
-        // this.myCanvas.height = event.target.height * scaleSize;
+        reader.readAsDataURL(file);
+
+        reader.onload = (_event) => {
+          this.originalImageUrl = reader.result;
+          console.log('originalImageUrl : ',this.originalImageUrl);
+
+          
+
+          // const srcEncoded = this.context.canvas.toDataURL(event.target, "image/jpeg");
+        };
 
 
-        // this.context.drawImage(event.target, 0, 0, this.myCanvas.width, this.myCanvas.height);
-
-        const srcEncoded = this.context.canvas.toDataURL(event.target, "image/jpeg");
-
-
+        
       }
 
     }
