@@ -9,10 +9,12 @@ export class AppComponent{
   title = 'ngNewTec';
   originalImageUrl:any;
   resizeImageUrl:any;
+  resizeStrin:string;
 
   onSelectFile(event) {
     if (event.target.files && event.target.files.length !== 0) {
       for (const file of event.target.files) {
+        console.log(file);
         const MAX_WIDTH = 200;
         const max_hight = 300;
 
@@ -26,9 +28,14 @@ export class AppComponent{
           // half done -----0------
           this.compressImage(this.originalImageUrl,200,200).then(compressed => {
               this.resizeImageUrl = compressed;
-              console.log('resizeImageUrl :- ',this.resizeImageUrl);
+              let base64Data = this.resizeImageUrl;
+              let base64DataRep = (this.resizeImageUrl).replace(/^data:image\/png;base64,/, "");
+              
+              const imgBlob = new Blob([base64DataRep], {
+                type: file.type
+              });
+              console.log('imgBlob',imgBlob);
           })
-          // const srcEncoded = this.context.canvas.toDataURL(event.target, "image/jpeg");
         };
       }
     }
